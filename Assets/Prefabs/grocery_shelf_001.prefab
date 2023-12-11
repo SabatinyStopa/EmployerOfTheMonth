@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614679684420546896}
+  - component: {fileID: 4042654031289969910}
   m_Layer: 0
   m_Name: grocery_shelf_001
   m_TagString: Untagged
@@ -36,6 +37,56 @@ Transform:
   - {fileID: 5896264476636608711}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4042654031289969910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551521729351837603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf2af0c28caa0c4e8e08fbc52bc4a70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefabs:
+  - {fileID: 1867973874154650018, guid: d0ddd93953187fd4195f9cea4a7b8a56, type: 3}
+  - {fileID: 8437613994786548798, guid: aa7a7f86756d6264089705ff022c30c0, type: 3}
+  - {fileID: -6883664449462303941, guid: 869b55c0dc2962d41a835b0eeb3c4b36, type: 3}
+  - {fileID: 1507646517386581418, guid: d6846055e97b9ac42a6e11a3ea4f1237, type: 3}
+  - {fileID: -2543187640680029064, guid: 5bef41f8151d12e47b88b8ec00bc0b63, type: 3}
+  - {fileID: 5598106731102648207, guid: cff631b005b811944a846f281776d825, type: 3}
+  - {fileID: -2404715398678710298, guid: c6f47410b0c7bfa488e17d3d793d6de4, type: 3}
+  - {fileID: -7508330509292466249, guid: ac3960763d9ed134b93e9bf2315734f3, type: 3}
+  - {fileID: 2322047331405131094, guid: 6b5c801f5ca0b3e4aa2780dbe3ba0538, type: 3}
+  - {fileID: -2104118258798589809, guid: bb285724e2c64684b817d021a6bc867d, type: 3}
+  - {fileID: 8438646434288350384, guid: d8cf39e351e7c82408a1ea1822811ad9, type: 3}
+  - {fileID: 464249067278965842, guid: 71be32ea5846afd419e33241296bc486, type: 3}
+  - {fileID: -6105033319593621531, guid: 7ad882d92260f6d42900c84561064dd3, type: 3}
+  - {fileID: 50053121481401308, guid: 1c6865324f95c004293d5d1efe86d559, type: 3}
+  - {fileID: 2851166246996573596, guid: b701910af56d089428c372aa6ba53383, type: 3}
+  - {fileID: 7041197318762631359, guid: 49631361040b46f4889e95efdb1b1a3c, type: 3}
+  - {fileID: 8085701304128969573, guid: 4fb052047707ed645a77e875351e3a5c, type: 3}
+  - {fileID: -281293018052442377, guid: c331d4509e2a94446b4dedf64fcae8dd, type: 3}
+  - {fileID: 7452747574981273641, guid: e883ef9085352484c9e3e76351515178, type: 3}
+  - {fileID: -6273002457786818175, guid: ba93ae1410e341d41be192f9d77df500, type: 3}
+  - {fileID: 8863323500520485549, guid: 6887084a4d02b064fbd55a21a809634f, type: 3}
+  - {fileID: -1313521287719398867, guid: 9bedc97a18133ae4a828aff2a2117745, type: 3}
+  - {fileID: -4435699710149954588, guid: 1b4c57d892a190d488bc5467a43318ef, type: 3}
+  - {fileID: -5235072690293519415, guid: e532945e283cca7478582f8a1880fdc7, type: 3}
+  - {fileID: -859262833659064982, guid: 3193c7f4a5f15774f852cd126f08b72a, type: 3}
+  - {fileID: -6643245375858073124, guid: 10ab30527b9bc8a4995e798ac0706a37, type: 3}
+  - {fileID: 7837742027239135538, guid: e46a842bf3694a84cadd43bb62ba0348, type: 3}
+  - {fileID: -8926640059334715191, guid: 517e976be9ac3ee41a961dd8bf728615, type: 3}
+  meshRenderers:
+  - {fileID: 3139028072345114688}
+  - {fileID: 265617343617408326}
+  - {fileID: 8901918256508857430}
+  - {fileID: 1106740076598701262}
+  numberOfItemsToSpawn: 3
+  dividerBound:
+    m_Center: {x: 0, y: 0.73, z: 0}
+    m_Extent: {x: 0.03, y: 0.64, z: 0.48}
 --- !u!1 &2076242664410214677
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,6 +98,7 @@ GameObject:
   - component: {fileID: 1247857824130893959}
   - component: {fileID: 1620697301250363435}
   - component: {fileID: 3139028072345114688}
+  - component: {fileID: 1155515181833366720}
   m_Layer: 0
   m_Name: grocery_shelves001
   m_TagString: Untagged
@@ -120,6 +172,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1155515181833366720
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076242664410214677}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7326492, y: 0.9030685, z: 0.08146002}
+  m_Center: {x: 0, y: 0.0008488299, z: -0.04026011}
 --- !u!1 &2982345896691244551
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +204,7 @@ GameObject:
   - component: {fileID: 4170218571355750213}
   - component: {fileID: 6443513606658467298}
   - component: {fileID: 8901918256508857430}
+  - component: {fileID: 2433239654123305926}
   m_Layer: 0
   m_Name: grocery_shelves003
   m_TagString: Untagged
@@ -204,6 +278,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2433239654123305926
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2982345896691244551}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7326492, y: 0.9030685, z: 0.08146002}
+  m_Center: {x: 0, y: 0.0008488299, z: -0.04025999}
 --- !u!1 &4958689885163090513
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +310,7 @@ GameObject:
   - component: {fileID: 8320868158252692807}
   - component: {fileID: 3307811835685826515}
   - component: {fileID: 8451093648742588674}
+  - component: {fileID: 3331405970764242822}
   m_Layer: 0
   m_Name: grocery_shelf_base
   m_TagString: Untagged
@@ -288,6 +384,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3331405970764242822
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958689885163090513}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.07, y: 0.9513921, z: 1.3733035}
+  m_Center: {x: 0, y: 0, z: 0.6866562}
 --- !u!1 &8278628020131341478
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +416,7 @@ GameObject:
   - component: {fileID: 5896264476636608711}
   - component: {fileID: 6131755640818562521}
   - component: {fileID: 1106740076598701262}
+  - component: {fileID: 1078210011305301230}
   m_Layer: 0
   m_Name: grocery_shelves004
   m_TagString: Untagged
@@ -372,6 +490,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1078210011305301230
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278628020131341478}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7326492, y: 0.9030685, z: 0.08146002}
+  m_Center: {x: 0, y: 0.0008488299, z: -0.04025999}
 --- !u!1 &8665217623384710459
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +522,7 @@ GameObject:
   - component: {fileID: 8142847713912304591}
   - component: {fileID: 8806926456878150558}
   - component: {fileID: 265617343617408326}
+  - component: {fileID: 2015369176098759975}
   m_Layer: 0
   m_Name: grocery_shelves002
   m_TagString: Untagged
@@ -456,3 +596,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2015369176098759975
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665217623384710459}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7326492, y: 0.9030685, z: 0.08146002}
+  m_Center: {x: 0, y: 0.0008488299, z: -0.04026011}
