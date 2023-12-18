@@ -18,12 +18,12 @@ namespace EmployerOfTheMonth.Common
             SpawnItems();
         }
 
+        private void OnDestroy() => DestroyItems();
+
         [ContextMenu("Spawn")]
         void SpawnItems()
         {
-            for (int i = 0; i < items.Count; i++) Destroy(items[i]);
-
-            items.Clear();
+            DestroyItems();
 
             foreach (MeshRenderer meshRenderer in meshRenderers)
             {
@@ -52,6 +52,13 @@ namespace EmployerOfTheMonth.Common
                     if (newItem != null) items.Add(newItem);
                 }
             }
+        }
+
+        private void DestroyItems()
+        {
+            for (int i = 0; i < items.Count; i++) Destroy(items[i]);
+
+            items.Clear();
         }
 
         public void OnDrawGizmosSelected()

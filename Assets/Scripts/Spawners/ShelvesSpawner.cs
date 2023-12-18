@@ -10,7 +10,11 @@ namespace EmployerOfTheMonth.Spawners
 
         private List<Shelve> shelves = new List<Shelve>();
 
-        private void Start() => Spawn();
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E)) Spawn();
+        }
 
         [ContextMenu("Spawn")]
         private void Spawn()
@@ -35,7 +39,7 @@ namespace EmployerOfTheMonth.Spawners
 
         private void DestroyShelves()
         {
-            for (int i = 0; i < shelves.Count; i++) Destroy(shelves[i]);
+            for (int i = 0; i < shelves.Count; i++) Destroy(shelves[i].gameObject);
 
             shelves.Clear();
         }
