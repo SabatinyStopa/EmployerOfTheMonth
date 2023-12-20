@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6275758905170123359}
   - component: {fileID: 1867973874154650018}
   - component: {fileID: -128356444416847005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Apple
   m_TagString: Untagged
   m_Icon: {fileID: 0}

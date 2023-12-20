@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5004205371930277924}
   - component: {fileID: -281293018052442377}
   - component: {fileID: 7589863288603994975}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}

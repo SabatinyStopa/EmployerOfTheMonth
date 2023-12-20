@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9074005148136849144}
   - component: {fileID: 7041197318762631359}
   - component: {fileID: 147646199893576915}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenProps_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
