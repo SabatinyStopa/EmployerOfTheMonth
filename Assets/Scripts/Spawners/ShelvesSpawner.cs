@@ -13,7 +13,7 @@ namespace EmployerOfTheMonth.Spawners
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E)) Spawn();
+            if (Input.GetKeyDown(KeyCode.Y)) Spawn();
         }
 
         [ContextMenu("Spawn")]

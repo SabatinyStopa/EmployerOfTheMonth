@@ -1,30 +1,36 @@
 using EmployerOfTheMonth.Common;
 using UnityEngine;
+using TMPro;
 
 namespace EmployerOfTheMonth.Player
 {
     public class Interactions : MonoBehaviour
     {
         [SerializeField] private Transform pickupPoint;
+        [SerializeField] private LayerMask layerMask;
+        [SerializeField] private TextMeshProUGUI interactionText;
 
         private void Update()
         {
-            if (Physics.Raycast(Camera.main.transform.position,
-                                Camera.main.transform.forward,
-                                out RaycastHit hit,
-                                10,
-                                LayerMask.NameToLayer("Interactables")) && Input.GetKeyDown(KeyCode.E) && pickupPoint.childCount <= 0)
+            var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+            interactionText.enabled = Physics.Raycast(ray, 2f, layerMask) && pickupPoint.childCount <= 0;
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask) && Input.GetKeyDown(KeyCode.E) && pickupPoint.childCount <= 0)
             {
                 var item = hit.transform.GetComponent<Item>();
+                var itemBody = item.GetComponent<Rigidbody>();
 
+                itemBody.isKinematic = true;
                 item.transform.SetParent(pickupPoint);
-                item.GetComponent<Rigidbody>().useGravity = false;
-                item.transform.position = Vector3.zero;
-                item.transform.rotation = Quaternion.identity;
+                item.transform.localPosition = Vector3.zero;
+                item.transform.localRotation = Quaternion.identity;
+                itemBody.velocity = Vector3.zero;
+                interactionText.enabled = false;
             }
             else if (Input.GetKeyDown(KeyCode.E) && pickupPoint.childCount > 0)
             {
-                pickupPoint.GetChild(0).GetComponent<Rigidbody>().useGravity = true;
+                pickupPoint.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
                 pickupPoint.GetChild(0).SetParent(null);
             }
         }

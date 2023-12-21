@@ -1,23 +1,14 @@
 using System.Collections.Generic;
 using EmployerOfTheMonth.Common;
 using UnityEngine;
-using System;
 using TMPro;
 
 namespace EmployerOfTheMonth.Quests.AllQuests
 {
-    public class ReplaceObjectsQuest : Quest
+    public class ReplaceObjectsQuest : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI countText;
-
-        private List<Item> items = new List<Item>();
-
-        public ReplaceObjectsQuest(string id,
-                                   string shortDescription,
-                                   string instructions,
-                                   Action onComplete) : base(id, shortDescription, instructions, onComplete)
-        {
-        }
+        [SerializeField] private List<Item> items = new List<Item>();
 
         private void OnTriggerEnter(Collider other)
         {
@@ -26,6 +17,17 @@ namespace EmployerOfTheMonth.Quests.AllQuests
             if (item != null)
             {
                 items.Add(item);
+                countText.text = "Items on the ground: " + items.Count;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            var item = other.GetComponent<Item>();
+
+            if (item != null && items.Contains(item))
+            {
+                items.Remove(item);
                 countText.text = "Items on the ground: " + items.Count;
             }
         }

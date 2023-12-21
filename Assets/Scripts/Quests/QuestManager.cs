@@ -1,19 +1,22 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace EmployerOfTheMonth.Quests
 {
     public class QuestManager : MonoBehaviour
     {
-        [SerializeField] private QuestScriptable[] questScriptables;
-
-        private List<Quest> quests = new List<Quest>();
-
-        private void Start()
+        [Serializable]
+        struct QuestContainer
         {
-            foreach (QuestScriptable questScriptable in questScriptables)
-                quests.Add(new Quest(questScriptable.Id, questScriptable.ShortDescription, questScriptable.Instructions, null));
+            public QuestScriptable Scriptable;
+            public GameObject[] QuestObjects;
         }
+
+        [SerializeField] private QuestContainer[] questContainers;
+
+        private Quest currentQuest;
+
+        public Quest CurrentQuest { get => currentQuest; set => currentQuest = value; }
 
         private void Update()
         {
@@ -22,14 +25,18 @@ namespace EmployerOfTheMonth.Quests
 
         public void InitializeQuest(string questId)
         {
-            foreach (Quest quest in quests)
+            foreach (QuestContainer questContainer in questContainers)
             {
-                if (Equals(quest.Id, questId))
+                if (Equals(questContainer.Scriptable.Id, questId))
                 {
-                    quest.Initialize();
+                    foreach (GameObject questObj in questContainer.QuestObjects) questObj.SetActive(true);
+
+                    currentQuest = new Quest(questContainer.Scriptable.Id, questContainer.Scriptable.ShortDescription, questContainer.Scriptable.Instructions);
                     break;
                 }
             }
+
+            currentQuest.Initialize();
         }
     }
 }

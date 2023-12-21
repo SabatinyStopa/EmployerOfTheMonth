@@ -1,5 +1,6 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
+using TMPro;
 
 namespace EmployerOfTheMonth.Common
 {
@@ -11,6 +12,18 @@ namespace EmployerOfTheMonth.Common
 
         private void Awake() => Instance = this;
         public static void SetQuestText(string text) => Instance.questText.text = text;
-        public static void SetBottomText(string text) => Instance.bottomText.text = text;
+        public static void SetBottomText(string text) => Instance.StartCoroutine(SpawnText(text));
+        private static IEnumerator SpawnText(string text)
+        {
+            var counter = 0;
+            Instance.bottomText.text = string.Empty;
+
+            while (counter < text.Length)
+            {
+                Instance.bottomText.text += text[counter];
+                yield return new WaitForSeconds(0.01f);
+                counter++;
+            }
+        }
     }
 }

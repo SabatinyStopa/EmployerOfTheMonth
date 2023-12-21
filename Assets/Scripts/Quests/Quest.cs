@@ -14,7 +14,7 @@ namespace EmployerOfTheMonth.Quests
 
         public string Id { get => id; }
 
-        public Quest(string id, string shortDescription, string instructions, Action onComplete)
+        public Quest(string id, string shortDescription, string instructions, Action onComplete = null)
         {
             this.id = id;
             this.onComplete = onComplete;
