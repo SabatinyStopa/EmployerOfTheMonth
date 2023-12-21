@@ -5,6 +5,7 @@ namespace EmployerOfTheMonth.Quests
 {
     public class QuestManager : MonoBehaviour
     {
+        public static QuestManager Instance;
         [Serializable]
         struct QuestContainer
         {
@@ -17,6 +18,8 @@ namespace EmployerOfTheMonth.Quests
         private Quest currentQuest;
 
         public Quest CurrentQuest { get => currentQuest; set => currentQuest = value; }
+
+        private void Awake() => Instance = this;
 
         private void Update()
         {
@@ -38,5 +41,7 @@ namespace EmployerOfTheMonth.Quests
 
             currentQuest.Initialize();
         }
+
+        public static void CompleteQuest() => Instance.currentQuest.Complete();
     }
 }

@@ -29,6 +29,8 @@ namespace EmployerOfTheMonth.Quests.AllQuests
             {
                 items.Remove(item);
                 countText.text = "Items on the ground: " + items.Count;
+
+                if (items.Count <= 0) QuestManager.CompleteQuest();
             }
         }
     }
