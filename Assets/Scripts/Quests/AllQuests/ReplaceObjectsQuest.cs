@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using EmployerOfTheMonth.Common;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 namespace EmployerOfTheMonth.Quests.AllQuests
 {
@@ -9,6 +10,8 @@ namespace EmployerOfTheMonth.Quests.AllQuests
     {
         [SerializeField] private TextMeshProUGUI countText;
         [SerializeField] private List<Item> items = new List<Item>();
+        [SerializeField] private Material defaultMaterial;
+        [SerializeField] private Material materialOnTheGround;
 
         private void Awake() => countText.text = string.Empty;
 
@@ -20,6 +23,8 @@ namespace EmployerOfTheMonth.Quests.AllQuests
             {
                 items.Add(item);
                 countText.text = "Items on the ground: " + items.Count;
+
+                item.GetComponent<Renderer>().sharedMaterial = materialOnTheGround;
             }
         }
 
@@ -31,6 +36,7 @@ namespace EmployerOfTheMonth.Quests.AllQuests
             {
                 items.Remove(item);
                 countText.text = "Items on the ground: " + items.Count;
+                item.GetComponent<Renderer>().sharedMaterial = defaultMaterial;
 
                 if (items.Count <= 0) QuestManager.CompleteQuest();
             }
