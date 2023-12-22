@@ -12,7 +12,7 @@ namespace EmployerOfTheMonth.Common
 
         private List<GameObject> items = new List<GameObject>();
 
-        void Start()
+        private void Start()
         {
             dividerBound.center = new Vector3(transform.position.x, dividerBound.center.y, transform.position.z);
             SpawnItems();
@@ -20,8 +20,10 @@ namespace EmployerOfTheMonth.Common
 
         private void OnDestroy() => DestroyItems();
 
+        public void SetNumberOfItemsToSpawn(int quantity) => numberOfItemsToSpawn = quantity;
+
         [ContextMenu("Spawn")]
-        void SpawnItems()
+        private void SpawnItems()
         {
             DestroyItems();
 

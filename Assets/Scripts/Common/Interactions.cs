@@ -17,7 +17,7 @@ namespace EmployerOfTheMonth.Player
 
             interactionText.enabled = Physics.Raycast(ray, 2f, layerMask) && currentItemBody == null;
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask) && Input.GetKeyDown(KeyCode.E) && currentItemBody == null)
+            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask) && Input.GetMouseButtonDown(0) && currentItemBody == null)
             {
                 currentItemBody = hit.transform.GetComponent<Rigidbody>();
                 
@@ -28,7 +28,7 @@ namespace EmployerOfTheMonth.Player
                 currentItemBody.constraints = RigidbodyConstraints.FreezePosition;
                 currentItemBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
-            else if (Input.GetKeyDown(KeyCode.E) && currentItemBody != null)
+            else if (Input.GetMouseButtonDown(0) && currentItemBody != null)
             {
                 currentItemBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
                 currentItemBody.constraints = RigidbodyConstraints.None;

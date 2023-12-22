@@ -31,6 +31,10 @@ namespace EmployerOfTheMonth.Quests
             UIManager.SetBottomText(instructions);
         }
 
-        public virtual void Complete() => onComplete?.Invoke();
+        public virtual void Complete()
+        {
+            UIManager.SetBottomText("Congratulations! You completed!");
+            onComplete?.Invoke();
+        }
     }
 }

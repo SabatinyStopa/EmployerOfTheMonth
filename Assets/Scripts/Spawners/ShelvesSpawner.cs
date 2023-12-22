@@ -10,6 +10,14 @@ namespace EmployerOfTheMonth.Spawners
 
         private List<Shelve> shelves = new List<Shelve>();
 
+        private void Start()
+        {
+            foreach (var item in shelvePrefabs)
+            {
+                item.SetNumberOfItemsToSpawn(1);
+            }
+        }
+
         [ContextMenu("Spawn")]
         public void Spawn()
         {
