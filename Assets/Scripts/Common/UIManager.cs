@@ -11,6 +11,12 @@ namespace EmployerOfTheMonth.Common
         [SerializeField] private TextMeshProUGUI questText;
 
         private void Awake() => Instance = this;
+
+        private void Start()
+        {
+            bottomText.text = string.Empty;
+            questText.text = string.Empty;
+        }
         public static void SetQuestText(string text) => Instance.questText.text = text;
         public static void SetBottomText(string text) => Instance.StartCoroutine(SpawnText(text));
         private static IEnumerator SpawnText(string text)

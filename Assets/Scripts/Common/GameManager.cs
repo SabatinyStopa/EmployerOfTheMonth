@@ -8,12 +8,13 @@ namespace EmployerOfTheMonth.Common
 
     public class GameManager : MonoBehaviour
     {
-        private static GameManager Instance;
+        private static GameManager instance;
 
-        private void Awake() => Instance = this;
+        private void Awake() => instance = this;
 
-        private IEnumerator Start() {
-            yield return new WaitForSeconds(3f);
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(1f);
             FindObjectOfType<ShelvesSpawner>().Spawn();
             QuestManager.InitializeQuest("ReplaceObjects");
         }

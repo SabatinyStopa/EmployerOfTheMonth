@@ -10,6 +10,8 @@ namespace EmployerOfTheMonth.Quests.AllQuests
         [SerializeField] private TextMeshProUGUI countText;
         [SerializeField] private List<Item> items = new List<Item>();
 
+        private void Awake() => countText.text = string.Empty;
+
         private void OnTriggerEnter(Collider other)
         {
             var item = other.GetComponent<Item>();
