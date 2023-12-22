@@ -10,14 +10,8 @@ namespace EmployerOfTheMonth.Spawners
 
         private List<Shelve> shelves = new List<Shelve>();
 
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Y)) Spawn();
-        }
-
         [ContextMenu("Spawn")]
-        private void Spawn()
+        public void Spawn()
         {
             DestroyShelves();
 
