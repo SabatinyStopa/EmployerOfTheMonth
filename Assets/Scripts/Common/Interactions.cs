@@ -10,17 +10,31 @@ namespace EmployerOfTheMonth.Player
         [SerializeField] private TextMeshProUGUI interactionText;
 
         private Rigidbody currentItemBody;
+        private Transform lookingTo;
 
         private void Update()
         {
             var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            var hitted = Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask);
 
-            interactionText.enabled = Physics.Raycast(ray, 2f, layerMask) && currentItemBody == null;
+            if (lookingTo != null)
+            {
+                lookingTo.GetComponent<Renderer>().materials[1].SetFloat("_OutlineThick", 0f);
+                lookingTo = null;
+            }
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask) && Input.GetMouseButtonDown(0) && currentItemBody == null)
+            if (hitted)
+            {
+                lookingTo = hit.transform;
+                hit.transform.GetComponent<Renderer>().materials[1].SetFloat("_OutlineThick", 1.1f);
+            }
+            
+            interactionText.enabled = hitted && currentItemBody == null;
+
+            if (hitted && Input.GetMouseButtonDown(0) && currentItemBody == null)
             {
                 currentItemBody = hit.transform.GetComponent<Rigidbody>();
-                
+
                 currentItemBody.transform.SetParent(pickupPoint);
                 currentItemBody.position = pickupPoint.position;
                 currentItemBody.velocity = Vector3.zero;

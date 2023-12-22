@@ -168,6 +168,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   interactionText: {fileID: 0}
+  outlineMaterial: {fileID: 2100000, guid: 1f06d516bd3650340b5ae5c4bcd86a84, type: 2}
 --- !u!1 &5798979044444706353
 GameObject:
   m_ObjectHideFlags: 0
