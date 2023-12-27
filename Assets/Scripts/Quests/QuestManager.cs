@@ -19,7 +19,7 @@ namespace EmployerOfTheMonth.Quests
 
         private void Awake() => instance = this;
 
-        public static void InitializeQuest(string questId)
+        public static void InitializeQuest(string questId, Action onComplete = null)
         {
             foreach (QuestContainer questContainer in instance.questContainers)
             {
@@ -27,7 +27,9 @@ namespace EmployerOfTheMonth.Quests
                 {
                     foreach (GameObject questObj in questContainer.QuestObjects) questObj.SetActive(true);
 
-                    instance.currentQuest = new Quest(questContainer.Scriptable.Id, questContainer.Scriptable.ShortDescription, questContainer.Scriptable.Instructions);
+                    instance.currentQuest = new Quest(questContainer.Scriptable.Id,
+                                                      questContainer.Scriptable.ShortDescription,
+                                                      questContainer.Scriptable.Instructions, onComplete);
                     break;
                 }
             }

@@ -1,11 +1,10 @@
-using System.Collections;
-using EmployerOfTheMonth.Quests;
 using EmployerOfTheMonth.Spawners;
+using EmployerOfTheMonth.Quests;
+using System.Collections;
 using UnityEngine;
 
 namespace EmployerOfTheMonth.Common
 {
-
     public class GameManager : MonoBehaviour
     {
         private static GameManager instance;
@@ -16,7 +15,11 @@ namespace EmployerOfTheMonth.Common
         {
             yield return new WaitForSeconds(1f);
             FindObjectOfType<ShelvesSpawner>().Spawn();
-            QuestManager.InitializeQuest("ReplaceObjects");
+            QuestManager.InitializeQuest("ReplaceObjects", () =>
+            {
+                GameObject.Find("ReplaceObjects").SetActive(false);
+                UIManager.SetQuestText(string.Empty);
+            });
         }
     }
 }

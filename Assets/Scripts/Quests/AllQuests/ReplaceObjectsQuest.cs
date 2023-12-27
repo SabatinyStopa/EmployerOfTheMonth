@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using EmployerOfTheMonth.Common;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Rendering;
 
 namespace EmployerOfTheMonth.Quests.AllQuests
 {
