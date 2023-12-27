@@ -36,11 +36,11 @@ namespace EmployerOfTheMonth.Player
                 currentItemBody = hit.transform.GetComponent<Rigidbody>();
 
                 currentItemBody.transform.SetParent(pickupPoint);
-                currentItemBody.position = pickupPoint.position;
                 currentItemBody.velocity = Vector3.zero;
                 currentItemBody.useGravity = false;
                 currentItemBody.constraints = RigidbodyConstraints.FreezePosition;
                 currentItemBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                currentItemBody.position = pickupPoint.position;
             }
             else if (Input.GetMouseButtonDown(0) && currentItemBody != null)
             {

@@ -7,6 +7,7 @@ namespace EmployerOfTheMonth.Spawners
     public class ShelvesSpawner : MonoBehaviour
     {
         [SerializeField] private Shelve[] shelvePrefabs;
+        [SerializeField] private Transform parent;
 
         private List<Shelve> shelves = new List<Shelve>();
 
@@ -30,7 +31,7 @@ namespace EmployerOfTheMonth.Spawners
             {
                 for (int y = 0; y < 12; y++)
                 {
-                    var shelve = Instantiate(shelvePrefabs[Random.Range(0, shelvePrefabs.Length - 1)]);
+                    var shelve = Instantiate(shelvePrefabs[Random.Range(0, shelvePrefabs.Length - 1)], parent);
 
                     shelve.transform.position = new Vector3(4 * x + initialX, 0, initialY + y);
 
