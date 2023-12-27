@@ -2,17 +2,51 @@ using System.Collections.Generic;
 using EmployerOfTheMonth.Common;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 namespace EmployerOfTheMonth.Quests.AllQuests
 {
     public class ReplaceObjectsQuest : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI countText;
-        [SerializeField] private List<Item> items = new List<Item>();
+        [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material materialOnTheGround;
+        private List<Item> items = new List<Item>();
+        private float timeUntilTheyArrive = 120;
+        private float timer = 0;
 
-        private void Awake() => countText.text = string.Empty;
+        private void OnEnable() => StartCoroutine(Timer());
+
+        private IEnumerator Timer()
+        {
+            countText.text = string.Empty;
+            timer = timeUntilTheyArrive;
+            timerText.text = timer.ToString();
+
+            while (timer > 0)
+            {
+                yield return new WaitForSeconds(1);
+
+                while (SettingsManager.IsPaused)
+                {
+                    yield return null;
+                }
+
+                timer -= 1;
+
+                timerText.text = "Time until the customers arrive: " +  timer.ToString();
+            }
+
+            QuestManager.FailQuest();
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+            items.Clear();
+            countText.text = string.Empty;
+        }
 
         private void OnTriggerEnter(Collider other)
         {

@@ -19,6 +19,10 @@ namespace EmployerOfTheMonth.Common
             {
                 GameObject.Find("ReplaceObjects").SetActive(false);
                 UIManager.SetQuestText(string.Empty);
+            }, () =>
+            {
+                GameObject.Find("ReplaceObjects").SetActive(false);
+                StartCoroutine(Start());
             });
         }
     }

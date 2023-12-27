@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using EmployerOfTheMonth.Common;
 
 namespace EmployerOfTheMonth.Quests
 {
@@ -19,7 +20,7 @@ namespace EmployerOfTheMonth.Quests
 
         private void Awake() => instance = this;
 
-        public static void InitializeQuest(string questId, Action onComplete = null)
+        public static void InitializeQuest(string questId, Action onComplete = null, Action onFail = null)
         {
             foreach (QuestContainer questContainer in instance.questContainers)
             {
@@ -29,7 +30,7 @@ namespace EmployerOfTheMonth.Quests
 
                     instance.currentQuest = new Quest(questContainer.Scriptable.Id,
                                                       questContainer.Scriptable.ShortDescription,
-                                                      questContainer.Scriptable.Instructions, onComplete);
+                                                      questContainer.Scriptable.Instructions, onComplete, onFail);
                     break;
                 }
             }
@@ -38,5 +39,7 @@ namespace EmployerOfTheMonth.Quests
         }
 
         public static void CompleteQuest() => instance.currentQuest.Complete();
+
+        public static void FailQuest() => instance.currentQuest.Fail();
     }
 }

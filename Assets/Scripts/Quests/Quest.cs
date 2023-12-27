@@ -7,6 +7,7 @@ namespace EmployerOfTheMonth.Quests
     public class Quest
     {
         protected Action onComplete;
+        protected Action onFail;
         protected string id;
         protected string shortDescription;
         protected string instructions;
@@ -14,12 +15,13 @@ namespace EmployerOfTheMonth.Quests
 
         public string Id { get => id; }
 
-        public Quest(string id, string shortDescription, string instructions, Action onComplete)
+        public Quest(string id, string shortDescription, string instructions, Action onComplete, Action onFail)
         {
             this.id = id;
             this.onComplete = onComplete;
             this.shortDescription = shortDescription;
             this.instructions = instructions;
+            this.onFail = onFail;
         }
 
         public virtual void Initialize()
@@ -35,6 +37,12 @@ namespace EmployerOfTheMonth.Quests
         {
             UIManager.SetBottomText("Congratulations! You completed!");
             onComplete?.Invoke();
+        }
+
+        public virtual void Fail()
+        {
+            UIManager.SetBottomText("YOU FAILED!");
+            onFail?.Invoke();           
         }
     }
 }
