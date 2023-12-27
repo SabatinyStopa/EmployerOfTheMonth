@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  mouseSensitive: 100
+  mouseSensitive: 250
   characterController: {fileID: 5078023233292444513}
   cam: {fileID: 3007279472828256891}
 --- !u!143 &5078023233292444513
@@ -168,7 +168,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   interactionText: {fileID: 0}
-  outlineMaterial: {fileID: 2100000, guid: 1f06d516bd3650340b5ae5c4bcd86a84, type: 2}
 --- !u!1 &5798979044444706353
 GameObject:
   m_ObjectHideFlags: 0

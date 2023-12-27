@@ -22,10 +22,12 @@ namespace EmployerOfTheMonth.Player
         private void Update()
         {
             if (SettingsManager.IsPaused) return;
-            
+
             MovementHandler();
             MouseLook();
         }
+
+        public void SetMouseSensitivity(float mouseSensitive) => this.mouseSensitive = mouseSensitive;
 
         private void MouseLook()
         {

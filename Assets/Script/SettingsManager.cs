@@ -3,6 +3,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using EmployerOfTheMonth.Player;
 
 
 public class SettingsManager : MonoBehaviour
@@ -17,11 +18,15 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private Slider musicSlider;
+    [Header("Sensibility")]
+    [SerializeField] private Slider mouseSlider;
+    private FirstPersonController firstPersonController;
 
     public static bool IsPaused;
 
     private void Start()
     {
+        firstPersonController = FindObjectOfType<FirstPersonController>();
         SetResolutionDropDown();
         SetMasterVolume();
         SetSfxVolume();
@@ -43,6 +48,7 @@ public class SettingsManager : MonoBehaviour
     public void SetMasterVolume() => masterMixer.SetFloat("MasterVolume", Mathf.Log10(masterSlider.value) * 20);
     public void SetSfxVolume() => masterMixer.SetFloat("SfxVolume", Mathf.Log10(sfxSlider.value) * 20);
     public void SetMusicVolume() => masterMixer.SetFloat("MusicVolume", Mathf.Log10(musicSlider.value) * 20);
+    public void SetMouseSensitivity() => firstPersonController.SetMouseSensitivity(mouseSlider.value);
     public void SetFullScreenMode()
     {
         Screen.fullScreen = fullScreenMode.isOn;
