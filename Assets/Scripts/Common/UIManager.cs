@@ -28,7 +28,7 @@ namespace EmployerOfTheMonth.Common
             while (counter < text.Length)
             {
                 instance.bottomText.text += text[counter];
-                yield return new WaitForSeconds(0.08f);
+                yield return new WaitForSeconds(0.03f);
                 counter++;
             }
 
