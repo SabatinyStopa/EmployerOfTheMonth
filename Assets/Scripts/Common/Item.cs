@@ -1,9 +1,14 @@
+using EmployerOfTheMonth.Enums;
 using UnityEngine;
 
 namespace EmployerOfTheMonth.Common
 {
     public class Item : MonoBehaviour
     {
+        [SerializeField] private ItemKind kind;
+
+        public ItemKind Kind { get => kind; set => kind = value; }
+
         public void OnDrawGizmosSelected()
         {
             var meshRenderer = GetComponent<Renderer>();

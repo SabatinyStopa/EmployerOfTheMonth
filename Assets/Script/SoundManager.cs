@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
 
         sound.Play();
 
-        Destroy(sound.gameObject, soundScriptable.AudioClip.length + 0.01f);
+        if (!sound.loop)
+            Destroy(sound.gameObject, soundScriptable.AudioClip.length + 0.01f);
     }
 }

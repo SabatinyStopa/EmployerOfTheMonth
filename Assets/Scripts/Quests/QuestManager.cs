@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using EmployerOfTheMonth.Common;
+using System.Collections;
 
 namespace EmployerOfTheMonth.Quests
 {
@@ -20,8 +21,19 @@ namespace EmployerOfTheMonth.Quests
 
         private void Awake() => instance = this;
 
-        public static void InitializeQuest(string questId, Action onComplete = null, Action onFail = null)
+        public static void InitializeQuest(
+            string questId,
+            Action onComplete = null,
+            Action onFail = null, Action onInitialize = null) => instance.StartCoroutine(instance.Initialize(questId, onComplete, onFail, onInitialize));
+
+        public static void CompleteQuest() => instance.currentQuest.Complete();
+
+        public static void FailQuest() => instance.currentQuest.Fail();
+
+        private IEnumerator Initialize(string questId, Action onComplete = null, Action onFail = null, Action onInitialize = null)
         {
+            while (UIManager.IsShowingText()) yield return null;
+
             foreach (QuestContainer questContainer in instance.questContainers)
             {
                 if (Equals(questContainer.Scriptable.Id, questId))
@@ -36,10 +48,8 @@ namespace EmployerOfTheMonth.Quests
             }
 
             instance.currentQuest.Initialize();
+
+            onInitialize?.Invoke();
         }
-
-        public static void CompleteQuest() => instance.currentQuest.Complete();
-
-        public static void FailQuest() => instance.currentQuest.Fail();
     }
 }
