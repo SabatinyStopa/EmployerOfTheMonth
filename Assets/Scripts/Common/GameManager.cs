@@ -1,9 +1,9 @@
 using EmployerOfTheMonth.Spawners;
 using EmployerOfTheMonth.Quests;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.AI;
 using EmployerOfTheMonth.AI;
+using System.Collections;
+using UnityEngine.AI;
+using UnityEngine;
 
 namespace EmployerOfTheMonth.Common
 {
@@ -11,12 +11,22 @@ namespace EmployerOfTheMonth.Common
     {
         private static GameManager instance;
 
+        [SerializeField] private GameObject roomTvTutorialParts;
+
         private void Awake() => instance = this;
 
         private IEnumerator Start()
         {
-            yield return new WaitForSeconds(1f);
-            FindObjectOfType<ShelvesSpawner>().Spawn();
+            yield return TutorialText();
+
+            QuestManager.InitializeQuest("Tutorial", () =>
+            {
+                StartReplaceObjectsQuest();
+            });
+        }
+
+        private void StartReplaceObjectsQuest()
+        {
             QuestManager.InitializeQuest("ReplaceObjects", () =>
             {
                 GameObject.Find("ReplaceObjects").SetActive(false);
@@ -26,8 +36,23 @@ namespace EmployerOfTheMonth.Common
             }, () =>
             {
                 GameObject.Find("ReplaceObjects").SetActive(false);
-                StartCoroutine(Start());
+                StartReplaceObjectsQuest();
+            }, () =>
+            {
+                FindObjectOfType<ShelvesSpawner>().Spawn();
             });
+        }
+
+        private IEnumerator TutorialText()
+        {
+            var secondsToWait = 3f;
+            yield return new WaitForSeconds(1f);
+            UIManager.SetBottomText("Move around using WASD", secondsToWait);
+            yield return new WaitForSeconds(secondsToWait);
+            UIManager.SetBottomText("Press ESC for settings", secondsToWait);
+            yield return new WaitForSeconds(secondsToWait);
+            UIManager.SetBottomText("Use the mouse to look around", secondsToWait);
+            yield return new WaitForSeconds(secondsToWait);
         }
 
         private void KillTheThiefQuest()
