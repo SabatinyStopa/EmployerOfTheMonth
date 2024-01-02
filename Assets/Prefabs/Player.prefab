@@ -181,8 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a717798e1043442a450760883fa9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitVfx: {fileID: 5362496420366553039, guid: 08a934c33cf321b4dabd537b0450f8f5, type: 3}
+  hitVfx: {fileID: 6750966810811156139, guid: 8d6aff6ecc3866a46ad04f9cfc4c380b, type: 3}
   gunHolder: {fileID: 8557167107941482371}
+  gunInstructionText: {fileID: 0}
 --- !u!1 &4406545493646259384
 GameObject:
   m_ObjectHideFlags: 0

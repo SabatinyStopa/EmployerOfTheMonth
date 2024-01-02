@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System;
 
 namespace EmployerOfTheMonth.Player
 {
@@ -19,25 +18,10 @@ namespace EmployerOfTheMonth.Player
 
         private void Update()
         {
-            if (firstPersonShooterController.HasGun) return;
+            if (firstPersonShooterController.IsShowingGun) return;
 
             GrabItemsHandler();
-            GrabGunsHandler();
             pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);
-        }
-
-        private void GrabGunsHandler()
-        {
-            var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            var hitted = Physics.Raycast(ray, out RaycastHit hit, 2f);
-
-            interactionText.enabled = hitted && hit.transform.CompareTag("Gun");
-
-            if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
-            {
-                firstPersonShooterController.Grab(hit.transform);
-                hit.transform.GetComponent<Collider>().enabled = false;
-            }
         }
 
         private void GrabItemsHandler()
@@ -47,12 +31,17 @@ namespace EmployerOfTheMonth.Player
 
             SetOutlineToTheCurrentLooking(hitted, hit);
 
-            interactionText.enabled = hitted && currentItemBody == null;
-
-            if (hitted && Input.GetMouseButtonDown(0) && currentItemBody == null)
+            if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
+            {
+                firstPersonShooterController.Grab(hit.transform);
+                hit.transform.GetComponent<Collider>().enabled = false;
+            }
+            else if (hitted && Input.GetMouseButtonDown(0) && currentItemBody == null)
                 OnClickToGrabItem(hit);
             else if (Input.GetMouseButtonDown(0) && currentItemBody != null)
                 OnClickToReleaseItem();
+
+            interactionText.enabled = hitted && (currentItemBody == null || hit.transform.CompareTag("Gun"));
         }
 
         private void OnClickToReleaseItem()
@@ -84,14 +73,19 @@ namespace EmployerOfTheMonth.Player
         {
             if (lookingTo != null)
             {
-                lookingTo.GetComponent<Renderer>().materials[1].SetFloat("_OutlineThick", 0f);
+                var lookingToRenderer = lookingTo.GetComponent<Renderer>();
+
+                if (lookingToRenderer != null) lookingToRenderer.materials[1].SetFloat("_OutlineThick", 0f);
+
                 lookingTo = null;
             }
 
             if (hitted && pickupPoint.childCount <= 0)
             {
                 lookingTo = hit.transform;
-                hit.transform.GetComponent<Renderer>().materials[1].SetFloat("_OutlineThick", 1.1f);
+                var hitRenderer = hit.transform.GetComponent<Renderer>();
+
+                if (hitRenderer != null) hitRenderer.materials[1].SetFloat("_OutlineThick", 1.1f);
             }
         }
     }
