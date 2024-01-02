@@ -15,17 +15,16 @@ namespace EmployerOfTheMonth.Common
 
         private IEnumerator Start()
         {
+            // FindObjectOfType<ShelvesSpawner>().Spawn();
+            // yield return new WaitForSeconds(1f);
+            // KillTheThiefQuest();
 
-            FindObjectOfType<ShelvesSpawner>().Spawn();
-            yield return new WaitForSeconds(1f);
-            KillTheThiefQuest();
+            yield return TutorialText();
 
-            // yield return TutorialText();
-
-            // QuestManager.InitializeQuest("Tutorial", () =>
-            // {
-            //     StartReplaceObjectsQuest();
-            // });
+            QuestManager.InitializeQuest("Tutorial", () =>
+            {
+                StartReplaceObjectsQuest();
+            });
         }
 
         private void StartReplaceObjectsQuest()
@@ -51,8 +50,6 @@ namespace EmployerOfTheMonth.Common
             var secondsToWait = 3f;
             yield return new WaitForSeconds(1f);
             UIManager.SetBottomText("Move around using WASD", secondsToWait);
-            yield return new WaitForSeconds(secondsToWait);
-            UIManager.SetBottomText("Press ESC for settings", secondsToWait);
             yield return new WaitForSeconds(secondsToWait);
             UIManager.SetBottomText("Use the mouse to look around", secondsToWait);
             yield return new WaitForSeconds(secondsToWait);
