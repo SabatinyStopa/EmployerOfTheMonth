@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 namespace EmployerOfTheMonth.Player
 {
@@ -9,14 +10,34 @@ namespace EmployerOfTheMonth.Player
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private TextMeshProUGUI interactionText;
 
+
         private Rigidbody currentItemBody;
         private Transform lookingTo;
+        private FirstPersonShooterController firstPersonShooterController;
+
+        private void Start() => firstPersonShooterController = GetComponent<FirstPersonShooterController>();
 
         private void Update()
         {
-            GrabItemsHandler();
+            if (firstPersonShooterController.HasGun) return;
 
+            GrabItemsHandler();
+            GrabGunsHandler();
             pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);
+        }
+
+        private void GrabGunsHandler()
+        {
+            var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            var hitted = Physics.Raycast(ray, out RaycastHit hit, 2f);
+
+            interactionText.enabled = hitted && hit.transform.CompareTag("Gun");
+
+            if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
+            {
+                firstPersonShooterController.Grab(hit.transform);
+                hit.transform.GetComponent<Collider>().enabled = false;
+            }
         }
 
         private void GrabItemsHandler()

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 9219771077699881947}
   - component: {fileID: 2617755217469800775}
   - component: {fileID: 1052468527108820105}
-  - component: {fileID: 2642498928428107613}
   - component: {fileID: 5078023233292444513}
+  - component: {fileID: 2642498928428107613}
   - component: {fileID: 1016832109140650232}
+  - component: {fileID: 2339259469052159427}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -109,22 +110,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2642498928428107613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3158518631818231610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3528ad8d904c784da2f2086f55f57b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  mouseSensitive: 250
-  characterController: {fileID: 5078023233292444513}
-  cam: {fileID: 3007279472828256891}
 --- !u!143 &5078023233292444513
 CharacterController:
   m_ObjectHideFlags: 0
@@ -151,6 +136,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2642498928428107613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158518631818231610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3528ad8d904c784da2f2086f55f57b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  mouseSensitive: 250
+  characterController: {fileID: 5078023233292444513}
+  cam: {fileID: 3007279472828256891}
 --- !u!114 &1016832109140650232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +169,51 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   interactionText: {fileID: 0}
+--- !u!114 &2339259469052159427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158518631818231610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a717798e1043442a450760883fa9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitVfx: {fileID: 5362496420366553039, guid: 08a934c33cf321b4dabd537b0450f8f5, type: 3}
+  gunHolder: {fileID: 8557167107941482371}
+--- !u!1 &4406545493646259384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8557167107941482371}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8557167107941482371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4406545493646259384}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: 0.38689995, y: -0.33499998, z: 0.47599998}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4250338677919637013}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &5798979044444706353
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +246,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4927618215851022132}
+  - {fileID: 8557167107941482371}
   m_Father: {fileID: 2764873431274685917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3007279472828256891
@@ -286,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 6850729157254429632}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.089, z: 0.674}
+  m_LocalPosition: {x: -0, y: -0.098, z: 0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

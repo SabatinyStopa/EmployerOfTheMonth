@@ -11,18 +11,21 @@ namespace EmployerOfTheMonth.Common
     {
         private static GameManager instance;
 
-        [SerializeField] private GameObject roomTvTutorialParts;
-
         private void Awake() => instance = this;
 
         private IEnumerator Start()
         {
-            yield return TutorialText();
 
-            QuestManager.InitializeQuest("Tutorial", () =>
-            {
-                StartReplaceObjectsQuest();
-            });
+            FindObjectOfType<ShelvesSpawner>().Spawn();
+            yield return new WaitForSeconds(1f);
+            KillTheThiefQuest();
+
+            // yield return TutorialText();
+
+            // QuestManager.InitializeQuest("Tutorial", () =>
+            // {
+            //     StartReplaceObjectsQuest();
+            // });
         }
 
         private void StartReplaceObjectsQuest()
@@ -59,6 +62,8 @@ namespace EmployerOfTheMonth.Common
         {
             QuestManager.InitializeQuest("SmileTheThiefIsHere", onComplete: () =>
             {
+                UIManager.SetQuestText(string.Empty);
+                UIManager.SetBottomText("There are guns in the staff small room!", 2f);
                 QuestManager.InitializeQuest("KillTheThief");
             }, onInitialize: () =>
            {
