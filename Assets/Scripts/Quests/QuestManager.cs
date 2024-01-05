@@ -26,7 +26,21 @@ namespace EmployerOfTheMonth.Quests
             Action onComplete = null,
             Action onFail = null, Action onInitialize = null) => instance.StartCoroutine(instance.Initialize(questId, onComplete, onFail, onInitialize));
 
-        public static void CompleteQuest() => instance.currentQuest.Complete();
+        public static void CompleteQuest()
+        {
+            UIManager.SetBottomText(string.Empty, 0);
+            UIManager.SetQuestText(string.Empty);
+            instance.currentQuest.Complete();
+
+            foreach (QuestContainer questContainer in instance.questContainers)
+            {
+                if (Equals(questContainer.Scriptable.Id, instance.currentQuest.Id))
+                {
+                    foreach (GameObject questObj in questContainer.QuestObjects) questObj.SetActive(false);
+                    break;
+                }
+            }
+        }
 
         public static void FailQuest() => instance.currentQuest.Fail();
 

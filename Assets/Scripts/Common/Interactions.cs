@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EmployerOfTheMonth.Common;
 
 namespace EmployerOfTheMonth.Player
 {
@@ -8,17 +9,26 @@ namespace EmployerOfTheMonth.Player
         [SerializeField] private Transform pickupPoint;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private TextMeshProUGUI interactionText;
+        [SerializeField] private TextMeshProUGUI detailsText;
 
-
+        private FirstPersonShooterController firstPersonShooterController;
         private Rigidbody currentItemBody;
         private Transform lookingTo;
-        private FirstPersonShooterController firstPersonShooterController;
+        private UIItem UIItem;
 
-        private void Start() => firstPersonShooterController = GetComponent<FirstPersonShooterController>();
+        private void Start()
+        {
+            UIItem = FindObjectOfType<UIItem>();
+            firstPersonShooterController = GetComponent<FirstPersonShooterController>();
+        }
 
         private void Update()
         {
-            if (firstPersonShooterController.IsShowingGun) return;
+            if (Input.GetKeyDown(KeyCode.E) && currentItemBody != null) UIItem.ToggleDescription(currentItemBody.transform);
+
+            detailsText.enabled = currentItemBody != null && !UIItem.IsShowing;
+
+            if (firstPersonShooterController.IsShowingGun || UIItem.IsShowing) return;
 
             GrabItemsHandler();
             pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);

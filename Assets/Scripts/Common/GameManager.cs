@@ -15,16 +15,20 @@ namespace EmployerOfTheMonth.Common
 
         private IEnumerator Start()
         {
-            // FindObjectOfType<ShelvesSpawner>().Spawn();
+            FindObjectOfType<ShelvesSpawner>().Spawn();
             // yield return new WaitForSeconds(1f);
             // KillTheThiefQuest();
 
-            yield return TutorialText();
+            yield return null;
 
-            QuestManager.InitializeQuest("Tutorial", () =>
-            {
-                StartReplaceObjectsQuest();
-            });
+            QuestManager.InitializeQuest("ExpiredProducts");
+
+            // yield return TutorialText();
+
+            // QuestManager.InitializeQuest("Tutorial", () =>
+            // {
+            //     StartReplaceObjectsQuest();
+            // });
         }
 
         private void StartReplaceObjectsQuest()
