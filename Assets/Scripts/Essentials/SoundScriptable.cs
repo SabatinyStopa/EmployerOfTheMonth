@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-[CreateAssetMenu(fileName = "Sound", menuName = "OneBitJam/Sound", order = 0)]
+[CreateAssetMenu(fileName = "Sound", menuName = "Configuration/Sound", order = 0)]
 public class SoundScriptable : ScriptableObject
 {
     public string Id;

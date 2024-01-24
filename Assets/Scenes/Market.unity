@@ -1777,7 +1777,9 @@ MonoBehaviour:
     QuestObjects:
     - {fileID: 1256067424}
   - Scriptable: {fileID: 11400000, guid: 4af2b3d8f2b27b54ba75a4669763c114, type: 2}
-    QuestObjects: []
+    QuestObjects:
+    - {fileID: 1256067424}
+    - {fileID: 3256648256332498290}
   - Scriptable: {fileID: 11400000, guid: 30a26998f5b34c44dad359c348dad46a, type: 2}
     QuestObjects:
     - {fileID: 1684094993}
@@ -6460,13 +6462,14 @@ GameObject:
   - component: {fileID: 1256067427}
   - component: {fileID: 1256067426}
   - component: {fileID: 1256067425}
+  - component: {fileID: 1256067431}
   m_Layer: 0
   m_Name: BaseCustomer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1256067425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6590,6 +6593,27 @@ Transform:
   - {fileID: 491424093}
   m_Father: {fileID: 1437845750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1256067431
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256067424}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1267577544
 GameObject:
   m_ObjectHideFlags: 0
