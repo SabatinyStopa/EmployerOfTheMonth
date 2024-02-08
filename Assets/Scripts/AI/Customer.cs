@@ -9,11 +9,13 @@ namespace EmployerOfTheMonth.AI
     public class Customer : MonoBehaviour
     {
         private NavMeshAgent agent;
+        private Animator animator;
         public Action OnArriveInDestination;
 
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            animator = GetComponentInChildren<Animator>();
             Wander();
         }
 
@@ -24,6 +26,23 @@ namespace EmployerOfTheMonth.AI
                 OnArriveInDestination?.Invoke();
                 Wander();
             }
+
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+        }
+
+        public void PlayAnimation(string animationToPlay)
+        {
+            animator.Play(animationToPlay);
+        }
+
+        public float AnimationLenght(string animationName)
+        {
+            foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == animationName) return clip.length;
+            }
+
+            return 0;
         }
 
         private void Wander()

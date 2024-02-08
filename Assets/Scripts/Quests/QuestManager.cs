@@ -34,7 +34,7 @@ namespace EmployerOfTheMonth.Quests
 
             foreach (QuestContainer questContainer in instance.questContainers)
             {
-                if (Equals(questContainer.Scriptable.Id, instance.currentQuest.Id))
+                if (Equals(questContainer.Scriptable.Id, instance.currentQuest.Id) && questContainer.Scriptable.DesactiveAfterQuest)
                 {
                     foreach (GameObject questObj in questContainer.QuestObjects) questObj.SetActive(false);
                     break;

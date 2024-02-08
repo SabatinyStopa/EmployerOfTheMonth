@@ -8,5 +8,6 @@ namespace EmployerOfTheMonth.Quests
         public string Id;
         public string ShortDescription;
         public string Instructions;
+        public bool DesactiveAfterQuest = true;
     }
 }

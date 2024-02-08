@@ -16,12 +16,12 @@ namespace EmployerOfTheMonth.Common
         private IEnumerator Start()
         {
             FindObjectOfType<ShelvesSpawner>().Spawn();
-            // yield return new WaitForSeconds(1f);
-            // KillTheThiefQuest();
+            yield return new WaitForSeconds(1f);
+            KillTheThiefQuest();
 
             yield return null;
 
-            QuestManager.InitializeQuest("ExpiredProducts");
+            // QuestManager.InitializeQuest("ExpiredProducts");
 
             // yield return TutorialText();
 
@@ -78,17 +78,33 @@ namespace EmployerOfTheMonth.Common
 
         private void GrabTv()
         {
-            QuestManager.CompleteQuest();
+            var baseCostumer = GameObject.Find("BaseCustomer").GetComponent<Customer>();
+            var tv = GameObject.Find("Television");
+            var lenght = baseCostumer.AnimationLenght("GrabTv");
 
+            baseCostumer.transform.forward = -tv.transform.forward;
+
+            baseCostumer.PlayAnimation("GrabTv");
+            baseCostumer.GetComponent<NavMeshAgent>().isStopped = true;
+
+            Invoke(nameof(CompleteThiefPart), lenght + 2f);
+
+            baseCostumer.OnArriveInDestination -= GrabTv;
+        }
+
+        public void CompleteThiefPart()
+        {
             var baseCostumer = GameObject.Find("BaseCustomer");
             var tv = GameObject.Find("Television");
 
+            QuestManager.CompleteQuest();
+
             tv.transform.SetParent(baseCostumer.transform.GetChild(0));
+
+            baseCostumer.GetComponent<NavMeshAgent>().isStopped = false;
 
             tv.transform.rotation = Quaternion.identity;
             tv.transform.localPosition = Vector3.zero;
-
-            baseCostumer.GetComponent<Customer>().OnArriveInDestination -= GrabTv;
         }
     }
 }
