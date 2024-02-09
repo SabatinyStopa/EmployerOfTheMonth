@@ -82,6 +82,7 @@ namespace EmployerOfTheMonth.Common
             var tv = GameObject.Find("Television");
             var lenght = baseCostumer.AnimationLenght("GrabTv");
 
+            baseCostumer.tag = "Enemy";
             baseCostumer.transform.forward = -tv.transform.forward;
 
             baseCostumer.PlayAnimation("GrabTv");
@@ -97,7 +98,21 @@ namespace EmployerOfTheMonth.Common
             var baseCostumer = GameObject.Find("BaseCustomer");
             var tv = GameObject.Find("Television");
 
+            var tvPosition = tv.transform.position;
+            var tvRotation = tv.transform.rotation;
+
             QuestManager.CompleteQuest();
+
+            baseCostumer.GetComponent<Life>().OnDie += () =>
+            {
+                tv.transform.SetParent(null);
+                Destroy(baseCostumer);
+                QuestManager.CompleteQuest();
+                tv.AddComponent<Rigidbody>();
+                tv.AddComponent<BoxCollider>();
+
+                // IEnumerator MakeTvGoBack
+            };
 
             tv.transform.SetParent(baseCostumer.transform.GetChild(0));
 

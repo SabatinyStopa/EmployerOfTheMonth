@@ -1,3 +1,4 @@
+using EmployerOfTheMonth.Common;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace EmployerOfTheMonth.Player
 
         private bool isShowingGun;
 
-        private string gunHolsterInstruction   = "1 to holster gun";
+        private string gunHolsterInstruction = "1 to holster gun";
         private string gunUnholsterInstruction = "1 to pick gun";
 
 
@@ -42,7 +43,10 @@ namespace EmployerOfTheMonth.Player
                 {
                     Destroy(Instantiate(hitVfx, hit.point, Quaternion.LookRotation(Camera.main.transform.position - hit.point)).gameObject, 1f);
 
-                    if (hit.transform.CompareTag("Enemy")) Destroy(hit.transform.gameObject);
+                    if (hit.transform.CompareTag("Enemy"))
+                    {
+                        hit.transform.GetComponent<Life>().TakeDamage(50);
+                    }
                 }
             }
         }
