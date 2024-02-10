@@ -111,7 +111,7 @@ namespace EmployerOfTheMonth.Common
                 tv.AddComponent<Rigidbody>();
                 tv.AddComponent<BoxCollider>();
 
-                // IEnumerator MakeTvGoBack
+                StartCoroutine(MakeTvGoBack(tv, tvPosition, tvRotation));
             };
 
             tv.transform.SetParent(baseCostumer.transform.GetChild(0));
@@ -121,5 +121,16 @@ namespace EmployerOfTheMonth.Common
             tv.transform.rotation = Quaternion.identity;
             tv.transform.localPosition = Vector3.zero;
         }
+
+        private IEnumerator MakeTvGoBack(GameObject tv, Vector3 tvPosition, Quaternion tvRotation)
+        {
+            yield return new WaitForSeconds(5f);
+            tv.transform.position = tvPosition;
+            tv.transform.rotation = tvRotation;
+
+            Destroy(tv.GetComponent<Rigidbody>());
+            Destroy(tv.GetComponent<BoxCollider>());
+        }
+
     }
 }
