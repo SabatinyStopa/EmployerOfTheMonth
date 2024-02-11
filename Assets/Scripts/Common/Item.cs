@@ -8,9 +8,11 @@ namespace EmployerOfTheMonth.Common
         [SerializeField] private ItemKind kind;
 
         private string description;
+        private bool expired;
 
         public ItemKind Kind { get => kind; set => kind = value; }
         public string Description { get => description; set => description = value; }
+        public bool Expired { get => expired; set => expired = value; }
 
         public void OnDrawGizmosSelected()
         {

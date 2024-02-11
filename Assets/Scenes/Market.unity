@@ -1667,7 +1667,8 @@ MonoBehaviour:
   questInitializers:
   - {fileID: 2326340834283154188, guid: aa5032a7df181be4686e2966ca12efcf, type: 3}
   - {fileID: 5883047293540121426, guid: 89895075cf5b6ad44baa75c78ce2ce11, type: 3}
-  currentQuestIndex: 1
+  - {fileID: 5804406803864934864, guid: 82407ef06920f354786229387c2770d0, type: 3}
+  currentQuestIndex: 2
 --- !u!4 &201565815
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,6 @@ namespace EmployerOfTheMonth.Quests.AllQuests
         [SerializeField] private TextMeshProUGUI quantityText;
         [SerializeField] private Material debugMaterial;
 
-        private List<Item> expiredItems = new List<Item>();
         private List<Item> itemsOnTheBox = new List<Item>();
 
         public override void OnInitializeQuest()
@@ -32,11 +31,11 @@ namespace EmployerOfTheMonth.Quests.AllQuests
 
             for (int i = 0; i < productsToExpire; i++)
             {
-                expiredItems.Add(randomizeItems[i]);
+                var randomizedItem = randomizeItems[i];
 
-                randomizeItems[i].Description = DescriptionText(randomizeItems[i], true);
-
-                randomizeItems[i].GetComponent<Renderer>().sharedMaterial = debugMaterial;
+                randomizedItem.Description = DescriptionText(randomizedItem, true);
+                randomizedItem.Expired = true;
+                randomizedItem.GetComponent<Renderer>().sharedMaterial = debugMaterial;
             }
 
             quantityText.text = "Total expired items: " + productsToExpire + " \n" +
@@ -49,7 +48,7 @@ namespace EmployerOfTheMonth.Quests.AllQuests
 
             if (item == null) return;
 
-            if (!expiredItems.Contains(item))
+            if (!item.Expired)
             {
                 UIManager.SetBottomText("Idiot! This item is not expired!", 1.2f);
                 return;
