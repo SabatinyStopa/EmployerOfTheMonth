@@ -1,13 +1,13 @@
 using System.Collections.Generic;
+using EmployerOfTheMonth.Helpers;
 using EmployerOfTheMonth.Common;
+using System.Linq;
 using UnityEngine;
 using TMPro;
-using System.Linq;
-using EmployerOfTheMonth.Helpers;
 
 namespace EmployerOfTheMonth.Quests.AllQuests
 {
-    public class ExpiredObjectsQuest : MonoBehaviour
+    public class ExpiredObjectsQuest : QuestInitializer
     {
         [SerializeField] private int productsToExpire = 10;
         [SerializeField] private TextMeshProUGUI quantityText;
@@ -16,13 +16,15 @@ namespace EmployerOfTheMonth.Quests.AllQuests
         private List<Item> expiredItems = new List<Item>();
         private List<Item> itemsOnTheBox = new List<Item>();
 
-        private void Start()
+        public override void OnInitializeQuest()
         {
+            base.OnInitializeQuest();
+
             var allItems = FindObjectsOfType<Item>();
 
             if (productsToExpire > allItems.Length) productsToExpire = allItems.Length;
 
-            List<Item> randomizeItems = allItems.ToList();
+            var randomizeItems = allItems.ToList();
 
             randomizeItems.Shuffle();
 

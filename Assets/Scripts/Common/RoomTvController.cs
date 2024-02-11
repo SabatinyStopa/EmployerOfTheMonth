@@ -2,6 +2,7 @@ using UnityEngine.Video;
 using UnityEngine;
 using TMPro;
 using EmployerOfTheMonth.Quests;
+using System;
 
 namespace EmployerOfTheMonth.Common
 {
@@ -9,25 +10,22 @@ namespace EmployerOfTheMonth.Common
     {
         [SerializeField] private VideoPlayer videoPlayer;
         [SerializeField] private TextMeshProUGUI instructions;
-        [SerializeField] private GameObject roomDoor;
 
-        private void Start()
-        {
-            videoPlayer.loopPointReached += EndReached;
-            instructions.text = "TV CONTROLS: \n Press 1 to Play.\n Press 2 To pause.\n Press 3 To restart";
-        }
+        private bool isNotInitialized = true;
 
+        private void Start() => videoPlayer.loopPointReached += EndReached;
         private void OnDestroy() => videoPlayer.loopPointReached -= EndReached;
 
         private void EndReached(VideoPlayer source)
         {
-            roomDoor.SetActive(false);
             QuestManager.CompleteQuest();
-            Destroy(gameObject);
+            isNotInitialized = true;
         }
 
         private void Update()
         {
+            if (isNotInitialized) return;
+
             if (Input.GetKeyDown(KeyCode.Alpha1)) videoPlayer.Play();
             else if (Input.GetKeyDown(KeyCode.Alpha2)) videoPlayer.Pause();
             else if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -35,6 +33,12 @@ namespace EmployerOfTheMonth.Common
                 videoPlayer.Stop();
                 videoPlayer.Play();
             }
+        }
+
+        public void Initialize()
+        {
+            instructions.text = "TV CONTROLS: \n Press 1 to Play.\n Press 2 To pause.\n Press 3 To restart";
+            isNotInitialized = false;
         }
     }
 }

@@ -17,64 +17,25 @@ namespace EmployerOfTheMonth.Common
         {
             FindObjectOfType<ShelvesSpawner>().Spawn();
             yield return new WaitForSeconds(1f);
-            KillTheThiefQuest();
-
-            yield return null;
-
-            // QuestManager.InitializeQuest("ExpiredProducts");
-
-            // yield return TutorialText();
-
-            // QuestManager.InitializeQuest("Tutorial", () =>
-            // {
-            //     StartReplaceObjectsQuest();
-            // });
+            QuestManager.InitializeSequenceOfQuests();
         }
 
-        private void StartReplaceObjectsQuest()
-        {
-            QuestManager.InitializeQuest("ReplaceObjects", () =>
-            {
-                GameObject.Find("ReplaceObjects").SetActive(false);
-                UIManager.SetQuestText(string.Empty);
+        // private void KillTheThiefQuest()
+        // {
+        //     QuestManager.InitializeQuest("SmileTheThiefIsHere", onComplete: () =>
+        //     {
+        //         UIManager.SetQuestText(string.Empty);
+        //         UIManager.SetBottomText("There are guns in the staff small room!", 2f);
+        //         QuestManager.InitializeQuest("KillTheThief");
+        //     }, onInitialize: () =>
+        //    {
+        //        var baseCostumer = GameObject.Find("BaseCustomer");
+        //        var tv = GameObject.Find("Television");
 
-                KillTheThiefQuest();
-            }, () =>
-            {
-                GameObject.Find("ReplaceObjects").SetActive(false);
-                StartReplaceObjectsQuest();
-            }, () =>
-            {
-                FindObjectOfType<ShelvesSpawner>().Spawn();
-            });
-        }
-
-        private IEnumerator TutorialText()
-        {
-            var secondsToWait = 3f;
-            yield return new WaitForSeconds(1f);
-            UIManager.SetBottomText("Move around using WASD", secondsToWait);
-            yield return new WaitForSeconds(secondsToWait);
-            UIManager.SetBottomText("Use the mouse to look around", secondsToWait);
-            yield return new WaitForSeconds(secondsToWait);
-        }
-
-        private void KillTheThiefQuest()
-        {
-            QuestManager.InitializeQuest("SmileTheThiefIsHere", onComplete: () =>
-            {
-                UIManager.SetQuestText(string.Empty);
-                UIManager.SetBottomText("There are guns in the staff small room!", 2f);
-                QuestManager.InitializeQuest("KillTheThief");
-            }, onInitialize: () =>
-           {
-               var baseCostumer = GameObject.Find("BaseCustomer");
-               var tv = GameObject.Find("Television");
-
-               baseCostumer.GetComponent<NavMeshAgent>().SetDestination(tv.transform.position);
-               baseCostumer.GetComponent<Customer>().OnArriveInDestination += GrabTv;
-           });
-        }
+        //        baseCostumer.GetComponent<NavMeshAgent>().SetDestination(tv.transform.position);
+        //        baseCostumer.GetComponent<Customer>().OnArriveInDestination += GrabTv;
+        //    });
+        // }
 
         private void GrabTv()
         {

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using EmployerOfTheMonth.Common;
+using System.Collections;
 using UnityEngine;
 using TMPro;
-using System.Collections;
+using System;
 
 namespace EmployerOfTheMonth.Quests.AllQuests
 {
-    public class ReplaceObjectsQuest : MonoBehaviour
+    public class ReplaceObjectsQuest : QuestInitializer
     {
         [SerializeField] private TextMeshProUGUI countText;
         [SerializeField] private TextMeshProUGUI timerText;
@@ -16,7 +17,28 @@ namespace EmployerOfTheMonth.Quests.AllQuests
         private float timeUntilTheyArrive = 120;
         private float timer = 0;
 
-        private void OnEnable() => StartCoroutine(Timer());
+        public override void OnComplete()
+        {
+            base.OnComplete();
+            UIManager.SetQuestText(string.Empty);
+        }
+
+        public override void OnFail()
+        {
+            base.OnFail();
+            StopAllCoroutines();
+            items.Clear();
+            countText.text = string.Empty;
+        }
+
+        public override void OnInitializeQuest()
+        {
+            base.OnInitializeQuest();
+            StopAllCoroutines();
+            items.Clear();
+            countText.text = string.Empty;
+            StartCoroutine(Timer());
+        }
 
         private IEnumerator Timer()
         {
@@ -35,17 +57,14 @@ namespace EmployerOfTheMonth.Quests.AllQuests
 
                 timer -= 1;
 
-                timerText.text = "Time until the customers arrive: " +  timer.ToString();
+                var timeSpan = TimeSpan.FromSeconds(timer);
+                var minutesText = timeSpan.Minutes >= 10 ? timeSpan.Minutes.ToString() : "0" + timeSpan.Minutes;
+                var secondsText = timeSpan.Seconds >= 10 ? timeSpan.Seconds.ToString() : "0" + timeSpan.Seconds;
+
+                timerText.text = $"Time until the customers arrive: {minutesText}:{secondsText}";
             }
 
             QuestManager.FailQuest();
-        }
-
-        private void OnDisable()
-        {
-            StopAllCoroutines();
-            items.Clear();
-            countText.text = string.Empty;
         }
 
         private void OnTriggerEnter(Collider other)
