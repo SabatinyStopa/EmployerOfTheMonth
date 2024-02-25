@@ -11,13 +11,11 @@ namespace EmployerOfTheMonth.Player
         [SerializeField] private Camera cam;
         [SerializeField] private Light flashlight;
         private float xRotation = 0f;
-        private float initialY;
 
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            initialY = transform.position.y;
         }
 
         private void Update()
@@ -51,7 +49,7 @@ namespace EmployerOfTheMonth.Player
             var moveDirection = transform.TransformDirection(new Vector3(horizontal, 0, vertical) * speed * Time.deltaTime);
 
             characterController.Move(moveDirection);
-            transform.position = new Vector3(transform.position.x, initialY, transform.position.z);
+            characterController.Move(Physics.gravity * Time.deltaTime);
         }
     }
 }
