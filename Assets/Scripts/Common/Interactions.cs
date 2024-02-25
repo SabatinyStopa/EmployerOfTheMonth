@@ -38,6 +38,8 @@ namespace EmployerOfTheMonth.Player
             if (firstPersonShooterController.IsShowingGun || UIItem.IsShowing) return;
 
             GrabItemsHandler();
+
+            if (Input.GetMouseButtonDown(2) && holdingItem != null) holdingItem.transform.localPosition = Vector3.zero;
             pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);
         }
 
@@ -45,7 +47,7 @@ namespace EmployerOfTheMonth.Player
         {
             var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask))
+            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask) && holdingItem == null)
             {
                 var isLookingInThisFrame = hit.transform.GetComponent<IInteract>();
 

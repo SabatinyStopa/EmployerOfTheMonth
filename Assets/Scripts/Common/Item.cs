@@ -52,7 +52,6 @@ namespace EmployerOfTheMonth.Common
         {
             body.velocity = Vector3.zero;
             body.useGravity = false;
-            body.collisionDetectionMode = CollisionDetectionMode.Continuous;
             body.transform.localPosition = Vector3.zero;
         }
 
@@ -62,7 +61,6 @@ namespace EmployerOfTheMonth.Common
 
         public void Release()
         {
-            body.collisionDetectionMode = CollisionDetectionMode.Discrete;
             body.useGravity = true;
             isBeingHolded = false;
         }
