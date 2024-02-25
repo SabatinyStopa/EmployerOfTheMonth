@@ -1,32 +1,39 @@
+using EmployerOfTheMonth.Interfaces;
 using EmployerOfTheMonth.Common;
 using UnityEngine;
+using System;
 using TMPro;
 
 namespace EmployerOfTheMonth.Player
 {
     public class Interactions : MonoBehaviour
     {
+        public static Action<Item> OnGrabItem;
         [SerializeField] private Transform pickupPoint;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private TextMeshProUGUI interactionText;
         [SerializeField] private TextMeshProUGUI detailsText;
 
         private FirstPersonShooterController firstPersonShooterController;
-        private Rigidbody currentItemBody;
-        private Transform lookingTo;
+        private Item holdingItem;
+        private IInteract lookingTo;
         private UIItem UIItem;
 
         private void Start()
         {
             UIItem = FindObjectOfType<UIItem>();
             firstPersonShooterController = GetComponent<FirstPersonShooterController>();
+
+            OnGrabItem += OnClickToGrabItem;
         }
+
+        private void OnDestroy() => OnGrabItem -= OnClickToGrabItem;
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E) && currentItemBody != null) UIItem.ToggleDescription(currentItemBody.transform);
+            if (Input.GetKeyDown(KeyCode.E) && holdingItem != null) UIItem.ToggleDescription(holdingItem.transform);
 
-            detailsText.enabled = currentItemBody != null && !UIItem.IsShowing;
+            detailsText.enabled = holdingItem != null && !UIItem.IsShowing;
 
             if (firstPersonShooterController.IsShowingGun || UIItem.IsShowing) return;
 
@@ -34,76 +41,87 @@ namespace EmployerOfTheMonth.Player
             pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);
         }
 
-        private void LateUpdate()
-        {
-            if (currentItemBody != null)
-                currentItemBody.velocity = Vector3.zero;
-        }
-
         private void GrabItemsHandler()
         {
             var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            var hitted = Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask);
 
-            SetOutlineToTheCurrentLooking(hitted, hit);
-
-            if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
+            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask))
             {
-                firstPersonShooterController.Grab(hit.transform);
-                // hit.transform.GetComponent<Collider>().enabled = false;
+                var isLookingInThisFrame = hit.transform.GetComponent<IInteract>();
+
+                if (isLookingInThisFrame != lookingTo)
+                {
+                    if (lookingTo != null)
+                        lookingTo.SetOutlineThick(0);
+
+                    isLookingInThisFrame.SetOutlineThick(1.1f);
+                    lookingTo = isLookingInThisFrame;
+                }
+
+                interactionText.enabled = true;
             }
-            else if (hitted && Input.GetMouseButtonDown(0) && currentItemBody == null)
-                OnClickToGrabItem(hit);
-            else if (Input.GetMouseButtonDown(0) && currentItemBody != null)
-                OnClickToReleaseItem();
-
-            interactionText.enabled = hitted && (currentItemBody == null || hit.transform.CompareTag("Gun"));
-        }
-
-        private void OnClickToReleaseItem()
-        {
-            currentItemBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            currentItemBody.transform.SetParent(null);
-            currentItemBody.useGravity = true;
-            currentItemBody = null;
-        }
-
-        private void OnClickToGrabItem(RaycastHit hit)
-        {
-            currentItemBody = hit.transform.GetComponent<Rigidbody>();
-
-            pickupPoint.rotation = Quaternion.identity;
-
-            currentItemBody.transform.SetParent(pickupPoint);
-            currentItemBody.velocity = Vector3.zero;
-            currentItemBody.useGravity = false;
-            currentItemBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            currentItemBody.transform.localPosition = Vector3.zero;
-
-            var renderer = currentItemBody.GetComponent<Renderer>();
-
-            if (renderer != null) renderer.materials[1].SetFloat("_OutlineThick", 0f);
-
-        }
-
-        private void SetOutlineToTheCurrentLooking(bool hitted, RaycastHit hit)
-        {
-            if (lookingTo != null)
+            else
             {
-                var lookingToRenderer = lookingTo.GetComponent<Renderer>();
-
-                if (lookingToRenderer != null) lookingToRenderer.materials[1].SetFloat("_OutlineThick", 0f);
-
+                interactionText.enabled = false;
+                lookingTo?.SetOutlineThick(0);
                 lookingTo = null;
             }
 
-            if (hitted && pickupPoint.childCount <= 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                lookingTo = hit.transform;
-                var hitRenderer = hit.transform.GetComponent<Renderer>();
-
-                if (hitRenderer != null) hitRenderer.materials[1].SetFloat("_OutlineThick", 1.1f);
+                if (holdingItem == null && lookingTo != null)
+                    lookingTo.Interact();
+                else if (holdingItem != null)
+                    ReleaseItem();
             }
+
+            // if (holdingItem != null)
+            // {
+            //     if (Input.GetMouseButtonDown(0)) ReleaseItem();
+            //     return;
+            // }
+
+            // if (hitted && holdingItem == null)
+            // {
+            //     lookingTo = hit.transform.GetComponent<IInteract>();
+
+            //     if (lookingTo != null) interactable.SetOutlineThick(1);
+
+            //     lookingTo = interactable;
+
+            //     if (pickupPoint.childCount <= 0) interactable.SetOutlineThick(1.1f);
+
+            //     if (Input.GetMouseButtonUp(0)) lookingTo.Interact();
+            // }
+
+            // if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
+            // {
+            //     firstPersonShooterController.Grab(hit.transform);
+            //     hit.transform.GetComponent<Collider>().enabled = false;
+            // }
+            // else if (hitted && Input.GetMouseButtonDown(0) && holdingItem == null)
+            //     OnClickToGrabItem(hit);
+            // else if (Input.GetMouseButtonDown(0) && holdingItem != null)
+            //     OnClickToReleaseItem();
+        }
+
+        private void ReleaseItem()
+        {
+            holdingItem.transform.SetParent(null);
+            holdingItem.Release();
+            holdingItem = null;
+        }
+
+        private void OnClickToGrabItem(Item item)
+        {
+            holdingItem = item;
+            pickupPoint.rotation = Quaternion.identity;
+            item.transform.SetParent(pickupPoint);
+        }
+
+        private void SetOutlineToTheCurrentLooking(IInteract interactable)
+        {
+
         }
     }
 }
