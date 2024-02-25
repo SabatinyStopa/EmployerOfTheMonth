@@ -50,7 +50,7 @@ namespace EmployerOfTheMonth.Player
             if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
             {
                 firstPersonShooterController.Grab(hit.transform);
-                hit.transform.GetComponent<Collider>().enabled = false;
+                // hit.transform.GetComponent<Collider>().enabled = false;
             }
             else if (hitted && Input.GetMouseButtonDown(0) && currentItemBody == null)
                 OnClickToGrabItem(hit);
@@ -80,7 +80,10 @@ namespace EmployerOfTheMonth.Player
             currentItemBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             currentItemBody.transform.localPosition = Vector3.zero;
 
-            currentItemBody.GetComponent<Renderer>().materials[1].SetFloat("_OutlineThick", 0f);
+            var renderer = currentItemBody.GetComponent<Renderer>();
+
+            if (renderer != null) renderer.materials[1].SetFloat("_OutlineThick", 0f);
+
         }
 
         private void SetOutlineToTheCurrentLooking(bool hitted, RaycastHit hit)
