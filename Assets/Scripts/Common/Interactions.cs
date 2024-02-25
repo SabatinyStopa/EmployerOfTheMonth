@@ -1,6 +1,6 @@
+using EmployerOfTheMonth.Common;
 using UnityEngine;
 using TMPro;
-using EmployerOfTheMonth.Common;
 
 namespace EmployerOfTheMonth.Player
 {
@@ -34,6 +34,12 @@ namespace EmployerOfTheMonth.Player
             pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);
         }
 
+        private void LateUpdate()
+        {
+            if (currentItemBody != null)
+                currentItemBody.velocity = Vector3.zero;
+        }
+
         private void GrabItemsHandler()
         {
             var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -57,7 +63,6 @@ namespace EmployerOfTheMonth.Player
         private void OnClickToReleaseItem()
         {
             currentItemBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            currentItemBody.constraints = RigidbodyConstraints.None;
             currentItemBody.transform.SetParent(null);
             currentItemBody.useGravity = true;
             currentItemBody = null;
@@ -72,7 +77,6 @@ namespace EmployerOfTheMonth.Player
             currentItemBody.transform.SetParent(pickupPoint);
             currentItemBody.velocity = Vector3.zero;
             currentItemBody.useGravity = false;
-            currentItemBody.constraints = RigidbodyConstraints.FreezePosition;
             currentItemBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             currentItemBody.transform.localPosition = Vector3.zero;
 
