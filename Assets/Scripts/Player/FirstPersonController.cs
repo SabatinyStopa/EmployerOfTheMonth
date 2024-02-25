@@ -9,6 +9,7 @@ namespace EmployerOfTheMonth.Player
         [SerializeField] private float mouseSensitive = 100f;
         [SerializeField] private CharacterController characterController;
         [SerializeField] private Camera cam;
+        [SerializeField] private Light flashlight;
         private float xRotation = 0f;
         private float initialY;
 
@@ -25,6 +26,8 @@ namespace EmployerOfTheMonth.Player
 
             MovementHandler();
             MouseLook();
+
+            if (Input.GetKeyDown(KeyCode.F)) flashlight.enabled = !flashlight.enabled;
         }
 
         public void SetMouseSensitivity(float mouseSensitive) => this.mouseSensitive = mouseSensitive;
