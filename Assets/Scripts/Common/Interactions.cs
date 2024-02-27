@@ -8,14 +8,14 @@ namespace EmployerOfTheMonth.Player
 {
     public class Interactions : MonoBehaviour
     {
-        public static Action<Item> OnGrabItem;
+        public static Action<Grababble> OnGrabItem;
         [SerializeField] private Transform pickupPoint;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private TextMeshProUGUI interactionText;
         [SerializeField] private TextMeshProUGUI detailsText;
 
         private FirstPersonShooterController firstPersonShooterController;
-        private Item holdingItem;
+        private Grababble holdingItem;
         private IInteract lookingTo;
         private UIItem UIItem;
 
@@ -47,7 +47,7 @@ namespace EmployerOfTheMonth.Player
         {
             var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 2f, layerMask) && holdingItem == null)
+            if (Physics.Raycast(ray, out RaycastHit hit, 1.5f, layerMask) && holdingItem == null)
             {
                 var isLookingInThisFrame = hit.transform.GetComponent<IInteract>();
 
@@ -76,35 +76,6 @@ namespace EmployerOfTheMonth.Player
                 else if (holdingItem != null)
                     ReleaseItem();
             }
-
-            // if (holdingItem != null)
-            // {
-            //     if (Input.GetMouseButtonDown(0)) ReleaseItem();
-            //     return;
-            // }
-
-            // if (hitted && holdingItem == null)
-            // {
-            //     lookingTo = hit.transform.GetComponent<IInteract>();
-
-            //     if (lookingTo != null) interactable.SetOutlineThick(1);
-
-            //     lookingTo = interactable;
-
-            //     if (pickupPoint.childCount <= 0) interactable.SetOutlineThick(1.1f);
-
-            //     if (Input.GetMouseButtonUp(0)) lookingTo.Interact();
-            // }
-
-            // if (hitted && Input.GetMouseButtonDown(0) && hit.transform.CompareTag("Gun"))
-            // {
-            //     firstPersonShooterController.Grab(hit.transform);
-            //     hit.transform.GetComponent<Collider>().enabled = false;
-            // }
-            // else if (hitted && Input.GetMouseButtonDown(0) && holdingItem == null)
-            //     OnClickToGrabItem(hit);
-            // else if (Input.GetMouseButtonDown(0) && holdingItem != null)
-            //     OnClickToReleaseItem();
         }
 
         private void ReleaseItem()
@@ -114,16 +85,11 @@ namespace EmployerOfTheMonth.Player
             holdingItem = null;
         }
 
-        private void OnClickToGrabItem(Item item)
+        private void OnClickToGrabItem(Grababble item)
         {
             holdingItem = item;
             pickupPoint.rotation = Quaternion.identity;
             item.transform.SetParent(pickupPoint);
-        }
-
-        private void SetOutlineToTheCurrentLooking(IInteract interactable)
-        {
-
         }
     }
 }
