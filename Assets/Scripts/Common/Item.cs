@@ -13,9 +13,13 @@ namespace EmployerOfTheMonth.Common
         public string Description { get => description; set => description = value; }
         public bool Expired { get => expired; set => expired = value; }
 
-        private void LateUpdate()
+        private void Update()
         {
-            if (isBeingHolded) body.velocity = Vector3.zero;
+            if (isBeingHolded)
+            {
+                transform.localPosition = Vector3.zero;
+                body.velocity = Vector3.zero;
+            }
         }
 
         public void OnDrawGizmosSelected()
