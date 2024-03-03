@@ -1196,6 +1196,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4459105726931952062}
     m_Modifications:
+    - target: {fileID: 1510400490147227590, guid: f3d76f9668a276a43bfa536ff218a172, type: 3}
+      propertyPath: m_Speed
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2947470249044425872, guid: f3d76f9668a276a43bfa536ff218a172, type: 3}
       propertyPath: m_Name
       value: Thief

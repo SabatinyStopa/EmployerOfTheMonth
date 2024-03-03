@@ -33,6 +33,7 @@ namespace EmployerOfTheMonth.Quests.AllQuests
 
             customerThief.tag = "Enemy";
             customerThief.transform.forward = -tv.transform.forward;
+            customerThief.SetSpeed(0.6f);
 
             customerThief.PlayAnimation("GrabTv");
             customerThief.GetComponent<NavMeshAgent>().isStopped = true;

@@ -30,10 +30,9 @@ namespace EmployerOfTheMonth.AI
             animator.SetFloat("Speed", agent.velocity.magnitude);
         }
 
-        public void PlayAnimation(string animationToPlay)
-        {
-            animator.Play(animationToPlay);
-        }
+        public void PlayAnimation(string animationToPlay) => animator.Play(animationToPlay);
+
+        public void SetSpeed(float speed) => agent.speed = speed;
 
         public float AnimationLenght(string animationName)
         {
@@ -66,5 +65,7 @@ namespace EmployerOfTheMonth.AI
             result = Vector3.zero;
             return false;
         }
+
+        
     }
 }
