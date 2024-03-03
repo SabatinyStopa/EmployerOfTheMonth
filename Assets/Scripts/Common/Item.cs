@@ -12,16 +12,7 @@ namespace EmployerOfTheMonth.Common
         public ItemKind Kind { get => kind; set => kind = value; }
         public string Description { get => description; set => description = value; }
         public bool Expired { get => expired; set => expired = value; }
-
-        private void Update()
-        {
-            if (isBeingHolded)
-            {
-                transform.localPosition = Vector3.zero;
-                body.velocity = Vector3.zero;
-            }
-        }
-
+      
         public void OnDrawGizmosSelected()
         {
             if (meshRenderer == null) return;

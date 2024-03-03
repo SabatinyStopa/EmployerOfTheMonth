@@ -9,6 +9,7 @@ namespace EmployerOfTheMonth.Player
     public class Interactions : MonoBehaviour
     {
         public static Action<Grababble> OnGrabItem;
+        public static Action OnReleaseItem;
         [SerializeField] private Transform pickupPoint;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private TextMeshProUGUI interactionText;
@@ -25,9 +26,14 @@ namespace EmployerOfTheMonth.Player
             firstPersonShooterController = GetComponent<FirstPersonShooterController>();
 
             OnGrabItem += OnClickToGrabItem;
+            OnReleaseItem += SetHoldingToNull;
         }
 
-        private void OnDestroy() => OnGrabItem -= OnClickToGrabItem;
+        private void OnDestroy()
+        {
+            OnGrabItem -= OnClickToGrabItem;
+            OnReleaseItem -= SetHoldingToNull;
+        }
 
         private void Update()
         {
@@ -38,9 +44,6 @@ namespace EmployerOfTheMonth.Player
             if (firstPersonShooterController.IsShowingGun || UIItem.IsShowing) return;
 
             GrabItemsHandler();
-
-            if (Input.GetMouseButtonDown(2) && holdingItem != null) holdingItem.transform.localPosition = Vector3.zero;
-            pickupPoint.transform.Rotate(pickupPoint.transform.up * Input.mouseScrollDelta.y * 50, Space.Self);
         }
 
         private void GrabItemsHandler()
@@ -53,8 +56,7 @@ namespace EmployerOfTheMonth.Player
 
                 if (isLookingInThisFrame != lookingTo)
                 {
-                    if (lookingTo != null)
-                        lookingTo.SetOutlineThick(0);
+                    if (lookingTo != null) lookingTo.SetOutlineThick(0);
 
                     isLookingInThisFrame.SetOutlineThick(1.1f);
                     lookingTo = isLookingInThisFrame;
@@ -71,25 +73,17 @@ namespace EmployerOfTheMonth.Player
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (holdingItem == null && lookingTo != null)
-                    lookingTo.Interact();
-                else if (holdingItem != null)
-                    ReleaseItem();
+                if (holdingItem == null && lookingTo != null) lookingTo.Interact(pickupPoint);
+                else if (holdingItem != null) holdingItem.Release();
             }
         }
 
-        private void ReleaseItem()
-        {
-            holdingItem.transform.SetParent(null);
-            holdingItem.Release();
-            holdingItem = null;
-        }
+        private void SetHoldingToNull() => holdingItem = null;
 
         private void OnClickToGrabItem(Grababble item)
         {
             holdingItem = item;
-            pickupPoint.rotation = Quaternion.identity;
-            item.transform.SetParent(pickupPoint);
+            item.transform.SetParent(null);
         }
     }
 }

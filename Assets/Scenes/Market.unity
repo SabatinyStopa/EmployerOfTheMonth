@@ -12326,6 +12326,10 @@ PrefabInstance:
       propertyPath: interactionText
       value: 
       objectReference: {fileID: 1989747714}
+    - target: {fileID: 1052468527108820105, guid: 92566ce23c5b02342bc26c42ca10a21f, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2339259469052159427, guid: 92566ce23c5b02342bc26c42ca10a21f, type: 3}
       propertyPath: gunInstructionText
       value: 

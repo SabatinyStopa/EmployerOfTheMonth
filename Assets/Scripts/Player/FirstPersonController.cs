@@ -22,10 +22,18 @@ namespace EmployerOfTheMonth.Player
         {
             if (SettingsManager.IsPaused) return;
 
-            MovementHandler();
-            MouseLook();
+            // MovementHandler();
+            // MouseLook();
 
             if (Input.GetKeyDown(KeyCode.F)) flashlight.enabled = !flashlight.enabled;
+        }
+
+        private void FixedUpdate()
+        {
+            if (SettingsManager.IsPaused) return;
+
+            MovementHandler();
+            MouseLook();
         }
 
         public void SetMouseSensitivity(float mouseSensitive) => this.mouseSensitive = mouseSensitive;

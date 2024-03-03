@@ -9,6 +9,9 @@ namespace EmployerOfTheMonth.Common
         [SerializeField] protected Renderer meshRenderer;
         protected Rigidbody body;
         protected bool isBeingHolded;
+        private Transform pointToMove;
+        private float lerpSpeed = 100f;
+
 
         private void Awake()
         {
@@ -17,18 +20,27 @@ namespace EmployerOfTheMonth.Common
             body = GetComponent<Rigidbody>();
         }
 
-        public virtual void Interact()
+        private void FixedUpdate()
         {
-            Interactions.OnGrabItem?.Invoke(this);
-            SetRigidBodyProperties();
-            SetOutlineThick(0);
-            isBeingHolded = true;
+            if (pointToMove == null) return;
+
+            body.MovePosition(Vector3.Lerp(transform.position, pointToMove.position, Time.deltaTime * lerpSpeed));
+
+            // if (Vector3.Distance(pointToMove.position, body.position) >= 0.1f)
+            //     body.velocity = (pointToMove.position - body.position).normalized * lerpSpeed;
+            // else
+            //     body.velocity = Vector3.zero;
         }
 
-        private void SetRigidBodyProperties()
+        public virtual void Interact(Transform pickupPoint)
         {
-            body.velocity = Vector3.zero;
+            Interactions.OnGrabItem?.Invoke(this);
             body.useGravity = false;
+            SetOutlineThick(0);
+            isBeingHolded = true;
+            pointToMove = pickupPoint;
+
+            transform.position = pickupPoint.position;
         }
 
         public void SetOutlineThick(float value) => meshRenderer.materials[1].SetFloat("_OutlineThick", value);
@@ -37,6 +49,8 @@ namespace EmployerOfTheMonth.Common
         {
             body.useGravity = true;
             isBeingHolded = false;
+            pointToMove = null;
+            Interactions.OnReleaseItem?.Invoke();
         }
     }
 }

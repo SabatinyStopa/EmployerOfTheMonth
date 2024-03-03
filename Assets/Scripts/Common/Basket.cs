@@ -7,22 +7,15 @@ namespace EmployerOfTheMonth.Common
     {
         [SerializeField] private List<Rigidbody> rigidbodiesInside = new List<Rigidbody>();
 
-        public override void Interact()
+        public override void Interact(Transform pickupPoint)
         {
-            base.Interact();
+            base.Interact(pickupPoint);
             transform.rotation = Quaternion.identity;
             body.freezeRotation = true;
         }
 
         private void LateUpdate()
         {
-            if (isBeingHolded) body.velocity = Vector3.zero;
-
-            if (Input.GetKey(KeyCode.Space))
-                body.velocity = transform.forward * 2f;
-            else
-                body.velocity += Vector3.zero;
-
             foreach (Rigidbody body in rigidbodiesInside) body.velocity = Vector3.zero;
         }
 
